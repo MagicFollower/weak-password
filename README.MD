@@ -2,8 +2,8 @@
 
 > ⚠️Attention!
 >
-> - The compressed package contains three files with different sorted versions, and  the data are consistent. 
-> - Each file is close to the size of 3GB. If your computer  has limited storage space, please just extract one of the files.
+> - The compressed package contains a file sorted by length, and the file  size after decompression is close to `3GB`.
+> - The compressed package uses `.7z` format, because the average user github allows  uploading files with a size of `100M`, and the compressed package in `.7z` format  will be smaller.
 
 - 123456
 - 1234567
@@ -16,7 +16,7 @@
 
 
 
-#### 一、Reference example（Java）
+##### 一、Reference example（Java）
 
 ```java
 import net.lingala.zip4j.ZipFile;
@@ -29,11 +29,12 @@ import java.util.Comparator;
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Process Start: >>>" + LocalDateTime.now());
+        final int PASSWORD_COUNT = 250_003_832;
 
-        int i = 1;
+        int i = 0;
         try (BufferedReader bfr = new BufferedReader(new FileReader("G:\\weak_password_length_sorted.data"));
              ZipFile zipFile = new ZipFile("C:\\Users\\abc\\Desktop\\abc1.zip");) {
-            while (i <= 249945593) {
+            while (i < PASSWORD_COUNT) {
                 zipFile.setPassword(bfr.readLine().toCharArray());
                 try {
                     zipFile.extractAll("destination_directory");
@@ -50,7 +51,7 @@ public class Main {
     }
 
 //    public static void main(String[] args) throws IOException {
-//        try (BufferedReader br = new BufferedReader(new FileReader("G:\\常见弱口令\\weak_password_name_sorted_desc.data"));
+//        try (BufferedReader br = new BufferedReader(new FileReader("G:\\weak_password_length_sorted.data"));
 //             BufferedWriter bw = new BufferedWriter(new FileWriter("weak_password_length_sorted.data"))) {
 //
 //            br.lines().map(String::strip).filter(x -> x.length() <= 32).sorted(Comparator.comparingInt(String::length)).distinct().forEach(x -> {
